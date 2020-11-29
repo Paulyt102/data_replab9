@@ -1,3 +1,4 @@
+
 const express = require('express')
 const app = express()
 const port = 4000
@@ -21,7 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-const strConnection = 'mongodb+srv://admin:admin@cluster0.hrgmz.mongodb.net/MyFilms?retryWrites=true&w=majority';
+const strConnection = 'mongodb+srv://admin:admin@cluster0.8v8zb.mongodb.net/MyFilms?retryWrites=true&w=majority';
+
 mongoose.connect(strConnection, {useNewUrlParser: true});
 
 const Schema = mongoose.Schema;
@@ -55,7 +57,17 @@ app.get('/api/movies/:id',(req, res)=>{
         res.json(data);
     })
 })
+app.delete('/api/movies/:id', function (req, res) {
+    console.log(req.params.id); //log to console
 
+    MovieModel.deleteOne({ _id: req.params.id },// find record in database and delete
+    function (err, data) {
+    if (err)
+    res.send(err);
+    res.send(data);
+    })
+    })
+    
 app.post('/api/movies', (req, res) => {
     console.log(req.body);
 

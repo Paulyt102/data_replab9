@@ -3,6 +3,25 @@ import Card from 'react-bootstrap/Card';
 
 export class MovieItem extends React.Component {
 
+
+    //movieItem.js
+    constructor() {
+        super();
+        this.DeleteMovie = this.DeleteMovie.bind(this);
+    }
+
+    DeleteMovie(e) {
+        e.preventDefault();
+        axios.delete('http://localhost:4000/api/movies/' + this.props.movie._id)//links to url
+        .then(()=>{
+            this.props.ReloadDataMethod();
+            })
+            
+            .then()
+            .catch();
+    }
+
+
     render() {
         return (
             <div>
@@ -16,6 +35,7 @@ export class MovieItem extends React.Component {
                             </footer>
                         </blockquote>
                     </Card.Body>
+                    <Button variant="danger" onClick={this.DeleteMovie}>Delete</Button>
                 </Card>
             </div>
         );
